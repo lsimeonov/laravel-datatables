@@ -37,6 +37,7 @@ class EloquentEngine extends QueryBuilderEngine
     public function __construct($model, Request $request)
     {
         $builder = $model instanceof Builder ? $model : $model->getQuery();
+        $this->relatedTables[] = $builder->getModel()->getTable();
         parent::__construct($builder->getQuery(), $request);
 
         $this->query      = $builder;
