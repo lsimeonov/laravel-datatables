@@ -386,10 +386,19 @@ class QueryBuilderEngine extends BaseEngine
             } else {
                 $q = $query;
             }
-
             if (! $q->from instanceof Expression) {
-                // Get table from query and add it.
-                $column = $q->from.'.'.$column;
+                $from = (string)$q->from;
+                // We check if we have as in the from string.
+                // This happens if we have join on the same table.
+                $position = strpos($from, ' as ');
+                if ($position !== false) {
+                    // return everything after the " as " as this is the table alias
+                    $from = substr($from, $position + 4);
+                    $column = $from.'.'.$column;
+                } else {
+                    // Get table from query and add it.
+                    $column = $q->from.'.'.$column;
+                }
             }
         }
 
