@@ -6,7 +6,6 @@ use Closure;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Str;
@@ -330,10 +329,10 @@ class QueryBuilderEngine extends BaseEngine
          */
         foreach ($relationChunk as $relation => $chunk) {
             // Prepare variables
-            $builder  = $chunk['builder'];
-            $query    = $chunk['query'];
+            $builder = $chunk['builder'];
+            $query = $chunk['query'];
             $bindings = $builder->getBindings();
-            $sql      = "({$builder->toSql()}) >= 1";
+            $sql = "({$builder->toSql()}) >= 1";
 
             // Check if it last relation we will use orWhereRaw
             if ($lastRelation == $relation) {
@@ -444,7 +443,7 @@ class QueryBuilderEngine extends BaseEngine
      */
     public function columnSearch()
     {
-        $columns = (array) $this->request->input('columns');
+        $columns = (array)$this->request->input('columns');
 
         foreach ($columns as $index => $column) {
             if (! $this->request->isColumnSearchable($index)) {
@@ -579,11 +578,11 @@ class QueryBuilderEngine extends BaseEngine
             $lastQuery = $model->getQuery();
         }
 
-            if (isset($hash)) {
-                $column = $hash.'.'.$relationColumn;
-            } else {
-                $column = $table.'.'.$relationColumn;
-            }
+        if (isset($hash)) {
+            $column = $hash.'.'.$relationColumn;
+        } else {
+            $column = $table.'.'.$relationColumn;
+        }
 
         return $column;
     }
